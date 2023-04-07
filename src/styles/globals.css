@@ -7,7 +7,7 @@
 
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+  --background-end-rgb: #F7F7F8;
 
   --primary-glow: conic-gradient(
     from 180deg at 50% 50%,
@@ -79,6 +79,16 @@
   margin: 0;
 }
 
+h2 {
+  color: #262525;
+  font-weight: 350;
+}
+
+h3 {
+  color: #262525;
+  font-weight: 350;
+}
+
 html,
 body {
   max-width: 100vw;
@@ -87,13 +97,12 @@ body {
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  background: var(--background-end-rgb);
+  min-height: 100vh;
+  font-family: 'Inter', 'Roboto', 'Helvetica Neue', 'Arial', sans-serif;
+  margin: 0;
 }
+
 
 a {
   color: inherit;
