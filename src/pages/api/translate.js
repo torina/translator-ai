@@ -23,7 +23,6 @@ export default async function translate(req, res) {
             temperature: 0,
         });
         res.status(200).json({ result: completion.data.choices[0].text });
-        console.log(completion.data.choices[0].text);
         // res.status(200).json({ result: completion.data.choices[0].message.content });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
