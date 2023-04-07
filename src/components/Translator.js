@@ -56,13 +56,13 @@ const TranslationArea = styled(TextArea)`
   height: auto;
 `;
 
-export default function Translator({ languages, topic }) {
+export default function Translator({ languages }) {
     const [text, setText] = useState('');
     const [translation, setTranslation] = useState('');
 
     async function handleTranslate() {
         if(text) {
-            const prompt = `Translate the following text to ${languages.to} with the context of "${topic || 'general'}":\n${text}\nTranslation: `;
+            const prompt = `Translate the following text to ${languages.to}":\n${text}\nTranslation: `;
             const response = await axios.post('/api/translate', {
                 prompt,
                 maxTokens: 100
