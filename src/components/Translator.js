@@ -56,18 +56,31 @@ const TranslationArea = styled(TextArea)`
   height: auto;
 `;
 
+const LoadingText = styled.p`
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+`;
+
 export default function Translator({ languages }) {
     const [text, setText] = useState('');
     const [translation, setTranslation] = useState('');
+    const [loading, setLoading] = useState(false);
 
     async function handleTranslate() {
         if(text) {
+            setLoading(true);
             const prompt = `Translate the following text to ${languages.to}":\n${text}\nTranslation: `;
-            const response = await axios.post('/api/translate', {
-                prompt,
-                maxTokens: 100
-            });
-            setTranslation(response.data.result);
+            try {
+                const response = await axios.post('/api/translate', {
+                    prompt,
+                    maxTokens: 100
+                });
+                setTranslation(response.data.result);
+            } catch (error) {
+                console.error('Error during translation:', error);
+            }
+            setLoading(false);
         } else {
             window.alert("No text given");
         }
@@ -77,7 +90,8 @@ export default function Translator({ languages }) {
         <Container>
             <Title>Your text</Title>
             <TextArea placeholder="Enter text to translate" value={text} onChange={(e) => setText(e.target.value)} />
-            <Button onClick={handleTranslate}>Translate</Button>
+            <Button onClick={handleTranslate} disabled={loading}>Translate</Button>
+            {loading && <LoadingText>Loading...</LoadingText>}
             {/*<Title>Translated text:</Title>*/}
             <TranslationArea readOnly value={translation} />
         </Container>

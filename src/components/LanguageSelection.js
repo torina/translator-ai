@@ -68,7 +68,6 @@ const LanguageSelection = ({ onLanguageSelected }) => {
 
     function handleSubmit() {
         if (to) {
-            console.log("TO LANGUAGE:: " + to);
             onLanguageSelected({ to });
         }
     }
