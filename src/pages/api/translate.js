@@ -10,14 +10,21 @@ export default async function translate(req, res) {
     const { prompt, maxTokens } = req.body;
 
     try {
-        const completion = await openai.createChatCompletion({
-            model: "gpt-3.5-turbo",
-            messages: [{role: 'user', content:`${prompt}`}],
+        // const completion = await openai.createChatCompletion({
+        //     model: "gpt-3.5-turbo",
+        //     messages: [{role: 'user', content:`${prompt}`}],
+        //     max_tokens: maxTokens,
+        //     temperature: 0.6,
+        // });
+        const completion = await openai.createCompletion({
+            model: "text-davinci-003",
+            prompt: prompt,
             max_tokens: maxTokens,
-            temperature: 0.6,
+            temperature: 0,
         });
-        console.log(completion.data.choices[0].message.content);
-        res.status(200).json({ result: completion.data.choices[0].message.content });
+        res.status(200).json({ result: completion.data.choices[0].text });
+        console.log(completion.data.choices[0].text);
+        // res.status(200).json({ result: completion.data.choices[0].message.content });
     } catch (error) {
         // Consider adjusting the error handling logic for your use case
         if (error.response) {
