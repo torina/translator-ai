@@ -6,6 +6,7 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-bottom: 1rem;
+  margin-top: 1rem;
 `;
 
 const Title = styled.h2`
@@ -75,7 +76,7 @@ const LanguageSelection = ({ onLanguageSelected }) => {
 
     return (
         <Container>
-            <Title>Destination language</Title>
+            <Title>To language</Title>
             <SelectWrapper>
                 <select value={to} onChange={(e) => setTo(e.target.value)}>
                     <option value="">Select language</option>

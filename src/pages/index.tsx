@@ -9,9 +9,9 @@ export default function Home() {
 
     return (
         <div>
-            <h1>Translator AI</h1>
+            <h1 className={"logo"}>Translator AI</h1>
             <LanguageSelection onLanguageSelected={setLanguages} />
-            <TopicSelection onTopicSelected={setTopic} />
+            {/*<TopicSelection onTopicSelected={setTopic} />*/}
             {languages.to && <Translator languages={languages} topic={topic} />}
         </div>
     );

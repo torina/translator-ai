@@ -16,11 +16,10 @@ const Title = styled.h3`
 
 const TextArea = styled.textarea`
   width: 70%;
-  min-height: 150px;
-  margin-bottom: 1rem;
+  min-height: 170px;
   font-size: 1.2rem;
   padding: 1rem;
-  border: 0px solid #ccc;
+  border: 0 solid #ccc;
   border-radius: 0.5rem;
 
   @media (max-width: 600px) {
@@ -45,7 +44,7 @@ const Button = styled.button`
   border-radius: 0.5rem;
   cursor: pointer;
   transition: background-color 0.2s ease-in-out;
-  margin-bottom: 3rem;
+  margin: 2rem;
 
   &:hover {
     background-color: #0054ad;
@@ -62,21 +61,24 @@ export default function Translator({ languages, topic }) {
     const [translation, setTranslation] = useState('');
 
     async function handleTranslate() {
-        const prompt = `Translate the following text to ${languages.to} with the context of "${topic || 'general'}":\n${text}\nTranslation: `;
-        const response = await axios.post('/api/translate', {
-            prompt,
-            maxTokens: 100
-        });
-
-        setTranslation(response.data.result);
+        if(text) {
+            const prompt = `Translate the following text to ${languages.to} with the context of "${topic || 'general'}":\n${text}\nTranslation: `;
+            const response = await axios.post('/api/translate', {
+                prompt,
+                maxTokens: 100
+            });
+            setTranslation(response.data.result);
+        } else {
+            window.alert("No text given");
+        }
     }
 
     return (
         <Container>
-            <Title>Translation</Title>
+            <Title>Your text</Title>
             <TextArea placeholder="Enter text to translate" value={text} onChange={(e) => setText(e.target.value)} />
             <Button onClick={handleTranslate}>Translate</Button>
-            <Title>Translated text:</Title>
+            {/*<Title>Translated text:</Title>*/}
             <TranslationArea readOnly value={translation} />
         </Container>
     );
